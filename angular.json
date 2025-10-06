@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "my-first-project": {
+    "angularsistema": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/my-first-project",
+            "outputPath": "dist/angularsistema",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -25,14 +25,10 @@
               "src/assets"
             ],
             "styles": [
+              "src/custom-theme.scss",
               "src/styles.css"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -62,10 +58,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "my-first-project:build:production"
+              "buildTarget": "angularsistema:build:production"
             },
             "development": {
-              "buildTarget": "my-first-project:build:development"
+              "buildTarget": "angularsistema:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -73,7 +69,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "my-first-project:build"
+            "buildTarget": "angularsistema:build"
           }
         },
         "test": {
@@ -98,6 +94,6 @@
     }
   },
   "cli": {
-    "analytics": "fba2cc58-1a5e-42b2-a353-53b302791a6f"
+    "analytics": "6f433e5d-e0a3-4a0b-9369-439f8f70292f"
   }
 }

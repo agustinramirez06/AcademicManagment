@@ -1,0 +1,83 @@
+<div class="page">
+
+  <section class="hero panel">
+    <h1>¡Buenas noches!</h1>
+    <p>Panel de gestión académica para profesores</p>
+  </section>
+
+  <section class="stats">
+    <div class="stat-card">
+      <div class="icon">📘</div>
+      <div class="content">
+        <div class="value">{{ materiasCount() }}</div>
+        <div class="label">Materias a Cargo</div>
+      </div>
+      <div class="accent"></div>
+    </div>
+
+    <div class="stat-card">
+      <div class="icon success">🧑‍🎓</div>
+      <div class="content">
+        <div class="value">{{ inscCount() }}</div>
+        <div class="label">Alumnos Inscriptos</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="icon warn">📅</div>
+      <div class="content">
+        <div class="value">{{ finalesCount() }}</div>
+        <div class="label">Próximos Finales</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <!-- Próximos Finales -->
+    <div class="panel">
+      <div class="panel-title">
+        <span class="icon-red">📅</span>
+        <span>Próximos Finales</span>
+      </div>
+
+      <ng-container *ngIf="finalesCount() > 0; else noFinales">
+        <div class="final-row" *ngFor="let f of finales()">
+          <div class="left">
+            <div class="name">{{ f.materia }}</div>
+            <div class="muted">{{ f.fecha }} - {{ f.hora }}</div>
+          </div>
+          <div class="right">
+            <span class="chip orange">{{ f.inscriptos }} alumnos inscriptos</span>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-template #noFinales>
+        <div class="empty">
+          <div class="clock">🕒</div>
+          <p>No tienes finales programados próximamente</p>
+          <a class="btn outline" routerLink="/profesor/fechas-finales">Programar Fechas</a>
+        </div>
+      </ng-template>
+    </div>
+
+    <!-- Acciones Rápidas -->
+    <div class="panel">
+      <div class="panel-title">
+        <span class="icon-red">📄</span>
+        <span>Acciones Rápidas</span>
+      </div>
+
+      <a class="quick" routerLink="/profesor/inscriptos">
+        <span>🧑‍🎓</span> Ver Alumnos Inscriptos
+      </a>
+      <a class="quick" routerLink="/profesor/cierre-acta">
+        <span>📝</span> Cargar Notas
+      </a>
+      <a class="quick" routerLink="/profesor/listado-actas">
+        <span>📑</span> Ver Actas
+      </a>
+    </div>
+  </section>
+
+</div>
