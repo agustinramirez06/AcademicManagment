@@ -1,27 +1,59 @@
-# Angularsistema
+Sistema de Finales
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+El Sistema de Finales es una plataforma integral para la gestión académica de exámenes finales en instituciones educativas. Permite a alumnos, profesores, administrativos, directivos y técnicos interactuar de forma organizada, asegurando trazabilidad, control y eficiencia en los procesos.
 
-## Development server
+Funciones principales
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Registro e inicio de sesión
+* Registro y validación de alumnos, profesores, directivos, administrativos y técnicos
+* Verificación de DNI por sistema y administrativo
+* Correo único en la base de datos
+* Creación de credenciales para acceso seguro
+* Recuperación y cambio de contraseña
+* Sesiones activas con opción de recordar inicio
 
-## Code scaffolding
+Vista de profesores
+* Visualización y gestión de fechas de finales
+* Listado y descarga de actas (PDF o Excel)
+* Gestión de alumnos inscriptos por final
+* Control y descarga de correlativas y plan curricular
+* Carga y cierre de actas con notas
+* Recepción de notificaciones por inscripciones, cambios de fechas y recordatorios
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Vista de alumnos
+* Verificación automática de correlativas
+* Inscripción a finales y cancelación hasta la fecha límite
+* Acceso a historial académico con notas y materias pendientes
+* Descarga de comprobantes y certificados en PDF
+* Notificaciones de fechas, recordatorios y novedades académicas
 
-## Build
+Vista de administrativos
+* Gestión completa de usuarios (aprobar, modificar, bloquear, eliminar)
+* Creación y edición de fechas de finales
+* Asignación de profesores a exámenes
+* Generación de reportes y estadísticas
+* Envío de notificaciones masivas o individuales
+* Supervisión general del sistema
+* Control de estadísticas académicas e inscripciones
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Vista de técnicos
+* Acceso completo a todas las funcionalidades
+* Pruebas, auditorías y validaciones del sistema
+* Modificación de datos de prueba sin restricciones
+* Recepción de todas las notificaciones
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Sistema de notificaciones
+* Profesores: inscripciones nuevas, cambios de fechas, recordatorios de cierre de actas
+* Alumnos: fechas de finales, recordatorios de inscripción, novedades académicas
+* Administrativos: aprobaciones de usuarios, recordatorios de gestión
+* Directivos: alertas administrativas, cambios en la planificación académica
+* Técnicos: reciben todas las notificaciones del sistema
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Beneficios del sistema
+* Centralización de la gestión de finales
+* Acceso diferenciado según rol
+* Automatización de verificaciones (DNI, correlativas, inscripciones)
+* Generación de reportes académicos y estadísticos
+* Comunicación eficiente mediante notificaciones
