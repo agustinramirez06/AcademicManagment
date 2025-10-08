@@ -12,6 +12,8 @@ import { CorrelativasComponent } from './pages/correlativas/correlativas.compone
 import { PlanCurricularComponent } from './pages/plan-curricular/plan-curricular.component';
 import { CierreActaComponent } from './pages/cierre-acta/cierre-acta.component';
 
+import { NotificacionesComponent } from './pages/notificaciones/notificaciones.component';
+
 export const profesorRoutes: Routes = [
   {
     path: 'profesor',
@@ -25,7 +27,8 @@ export const profesorRoutes: Routes = [
       { path: 'inscriptos', component: InscriptosComponent },
       { path: 'correlativas', component: CorrelativasComponent },
       { path: 'plan-curricular', component: PlanCurricularComponent },
-      { path: 'cierre-acta', component: CierreActaComponent }
+      { path: 'cierre-acta', component: CierreActaComponent },
+      { path: 'notificaciones', component: NotificacionesComponent }
     ]
   }
 ];

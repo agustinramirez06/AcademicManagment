@@ -1,11 +1,14 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { NgFor } from '@angular/common';                  // 👈 agregado
+import { NgFor } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
 import { AuthService } from '../../../../services/auth.service';
+import { NotificacionesFacade } from '../../../../features/profesor/services/notificaciones.facade';
+import { MatDialog } from '@angular/material/dialog';
+import { PerfilDialogComponent } from '../../components/perfil-dialog/perfil-dialog.component'; // ajustá la ruta
 
 type NavItem = { label: string; icon: string; link: string; };
 
@@ -21,10 +24,6 @@ type NavItem = { label: string; icon: string; link: string; };
     <div class="glass topbar">
       <a class="brand" routerLink="/profesor">
         <img class="logo" src="assets/logo.png" alt="Instituto" />
-        <div class="brand-text">
-          <span class="title">Instituto del Profesorado</span>
-          <span class="subtitle">Francisco de Paula Robles</span>
-        </div>
         <span class="role-badge">Profesor</span>
       </a>
 
@@ -41,7 +40,12 @@ type NavItem = { label: string; icon: string; link: string; };
       </nav>
 
       <div class="actions">
-        <button mat-icon-button matBadge="1" matBadgeColor="warn">
+        <button mat-icon-button
+                routerLink="/profesor/notificaciones"
+                [matBadge]="unread()"
+                matBadgeColor="warn"
+                [matBadgeHidden]="unread() === 0"
+                aria-label="Notificaciones">
           <mat-icon>notifications</mat-icon>
         </button>
 
@@ -55,7 +59,7 @@ type NavItem = { label: string; icon: string; link: string; };
           <mat-icon>expand_more</mat-icon>
         </button>
         <mat-menu #userMenu="matMenu" xPosition="before">
-          <button mat-menu-item disabled>
+          <button mat-menu-item (click)="abrirPerfil()">
             <mat-icon>person</mat-icon><span>Mi perfil</span>
           </button>
           <button mat-menu-item (click)="logout()">
@@ -216,6 +220,17 @@ export class ProfesorLayoutComponent {
     { label:'Plan Curricular',        icon:'school',      link:'/profesor/plan-curricular' },
     { label:'Cierre de Acta',         icon:'grading',     link:'/profesor/cierre-acta' }
   ]);
+
+  private dialog = inject(MatDialog);
+
+  abrirPerfil() {
+    this.dialog.open(PerfilDialogComponent, {
+      panelClass: 'perfil-dialog',
+    });
+  }
+
+  private noti = inject(NotificacionesFacade);
+  unread = this.noti.unreadCount;
 
   displayName = computed(() => {
     const raw = localStorage.getItem('user') ?? 'profesor1';

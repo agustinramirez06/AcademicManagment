@@ -51,7 +51,7 @@ import { SolicitarCambioDialogComponent } from '../../shared/solicitar-cambio-di
 
           <div class="item" *ngIf="f.acompaniante">
             <mat-icon>person_outline</mat-icon>
-            <span>Acompañante: {{ f.acompaniante }}</span>
+            <span>Vocal: {{ f.acompaniante }}</span>
           </div>
         </div>
       </div>

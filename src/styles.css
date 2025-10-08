@@ -10,3 +10,33 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border-radius: 14px;
 }
 
+.logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+:root {
+  --bg: #f9fafb;
+  --panel: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --accent: #b91c1c;
+  --border: rgba(0,0,0,.08);
+}
+
+.dark-theme {
+  --bg: #0b1220;
+  --panel: #0f172a;
+  --text: #e5e7eb;
+  --muted: #9aa3b2;
+  --accent: #7f1d1d;
+  --border: rgba(255,255,255,.08);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: background .3s, color .3s;
+}
