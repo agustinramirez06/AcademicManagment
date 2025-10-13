@@ -1,27 +1,100 @@
-# Angularsistema
+# 👨‍🏫 Vista de Profesores - Sistema de Gestión Académica
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+## 📘 Descripción
+La **vista de Profesores** permite la gestión integral de exámenes finales, actas, correlativas, planes curriculares y alumnos.  
+Está desarrollada en **Angular 17**, utilizando **Signals**, **Standalone Components** y **Angular Material**.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🚀 Funcionalidades Disponibles
 
-## Code scaffolding
+### 📅 Fechas de Finales
+- Visualización de fechas programadas.
+- Modificación de fechas asignadas (si está autorizado).
+- Filtrado por carrera, materia o año.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### 📋 Listado de Actas
+- Ver y descargar actas de examen en **PDF**.
+- Visualizar inscriptos y estado del acta.
+- Filtrar por estado (programado, en proceso, cerrado).
 
-## Build
+### 👨‍🎓 Alumnos Inscriptos
+- Listado de alumnos anotados a cada final.
+- Filtrado por carrera o año.
+- Verificación de condiciones académicas.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### 📘 Correlativas y Plan Curricular
+- Visualizar correlativas completas por materia.
+- Acceso al plan curricular completo.
+- Descarga de listados.
 
-## Running unit tests
+### 📝 Cierre de Actas
+- Carga de notas por alumno.
+- Confirmación de cierre.
+- Edición antes del cierre final.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### 🔔 Notificaciones
+- Nuevos alumnos inscriptos.
+- Cambios de fechas de finales.
+- Recordatorios de cierre de actas.
+- Alertas administrativas.
 
-## Running end-to-end tests
+---
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## 🧩 Estructura Interna
+```bash
+src/app/features/profesor/
+├── components/
+│ ├── dashboard/
+│ ├── fechas-finales/
+│ ├── listado-actas/
+│ ├── correlativas/
+│ ├── plan-curricular/
+│ └── cierre-acta/
+├── profesor.routes.ts
+├── profesor.guard.ts
+├── profesor.facade.ts
+└── profesor-layout.component.ts
 
-## Further help
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+---
+
+## 🧠 Tecnologías Utilizadas
+
+- **Angular 17**
+- **TypeScript**
+- **Angular Material**
+- **Signals** (reactividad moderna)
+- **SCSS** (diseño responsive)
+- **Facade Pattern** (coordinación de datos)
+- **Guard Pattern** (control de acceso)
+- **Routing avanzado con lazy loading**
+
+---
+
+## 🏗️ Flujo de Datos
+Login → AuthService → profesorGuard → ProfesorLayoutComponent → Dashboard → ProfesorFacade → Servicios → API
+
+---
+
+## 🔐 Seguridad
+- **profesorGuard** protege el acceso a las rutas del módulo.
+- Validación del usuario a través del `localStorage` (`user` inicia con “profesor”).
+- Redirección automática al login si no cumple los permisos.
+
+---
+
+## 💡 Mejores Prácticas
+- Componentes standalone.
+- Uso de `inject()` en lugar de `constructor`.
+- Variables reactivas con `signal()` y `computed()`.
+- División clara entre **presentación (componentes)** y **lógica (facades)**.
+
+---
+
+## 📈 Próximas Mejoras
+- Implementar carga real desde backend.
+- Añadir indicadores de carga (spinners).
+- Integrar exportación avanzada (PDF/Excel).
+- Mejorar gestión de notificaciones internas.
