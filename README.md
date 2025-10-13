@@ -1,27 +1,90 @@
-# Angularsistema
+# 🎓 Sistema de Gestión Académica
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+## 📘 Descripción General
+El **Sistema de Gestión Académica** es una aplicación web desarrollada en **Angular 17** que permite la administración integral de alumnos, profesores, directivos, administrativos y técnicos dentro de un entorno educativo.  
+El proyecto está orientado a la **gestión de exámenes finales**, actas, correlativas, planes curriculares y notificaciones.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🚀 Funcionalidades Principales
 
-## Code scaffolding
+### 👨‍🏫 Profesores
+- Gestión de fechas de finales (crear, modificar, visualizar).
+- Cierre de actas y carga de notas.
+- Listado de alumnos inscriptos y no inscriptos.
+- Descarga de actas y correlativas.
+- Visualización del plan curricular y correlativas.
+- Recepción de notificaciones de alumnos y administrativos.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### 👨‍🎓 Alumnos
+- Inscripción y cancelación de finales.
+- Verificación automática de correlativas.
+- Visualización de materias habilitadas.
+- Consulta de historial académico y descarga de comprobantes.
+- Notificaciones de fechas, recordatorios y novedades.
 
-## Build
+### 👨‍💼 Administrativos
+- Gestión de usuarios (crear, aprobar, modificar, eliminar).
+- Control y asignación de fechas de finales.
+- Reportes de inscripciones, notas y estadísticas académicas.
+- Envío de notificaciones masivas o personalizadas.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### 👨‍💻 Directivos
+- Supervisión de estadísticas generales del sistema.
+- Validación y aprobación de fechas de finales.
+- Recepción de alertas administrativas y cambios en la planificación.
 
-## Running unit tests
+### 🔧 Técnicos
+- Acceso completo al sistema.
+- Verificación, auditoría y pruebas de todas las funcionalidades.
+- Gestión integral de usuarios, fechas y reportes.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+---
 
-## Running end-to-end tests
+## 🏗️ Estructura del Proyecto
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+src/app/
+├── features/
+│   ├── profesor/
+│   ├── alumno/
+│   ├── admin/
+│   ├── director/
+│   └── tecnico/
+├── guards/
+├── services/
+└── pages/
 
-## Further help
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+---
+
+## ⚙️ Instalación y Ejecución
+
+# Clonar el repositorio
+git clone https://github.com/usuario/sistema-academico.git
+
+# Instalar dependencias
+npm install
+
+# Ejecutar la aplicación
+ng serve
+Accede desde: http://localhost:4200
+
+🔒 Sistema de Autenticación y Roles
+El sistema valida el rol del usuario mediante Guards, que controlan el acceso a cada sección.
+La autenticación se maneja desde el AuthService con almacenamiento local (localStorage) y redirección automática según el tipo de usuario.
+
+📡 Comunicación con el Backend
+Pendiente de implementación:
+
+Se prevé una API RESTful en .NET Core para conectar con la base de datos académica y gestionar usuarios, fechas y actas.
+
+🧩 Próximos pasos
+Integración del API Service con backend real.
+
+Implementación de manejo de errores y loaders visuales.
+
+Añadir testing unitario y documentación en el código.
+
+Optimizar manejo de estado con Signals + RxJS.
