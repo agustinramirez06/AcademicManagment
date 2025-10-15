@@ -1,26 +1,94 @@
 <h2 mat-dialog-title class="hdr">
-  <span class="hdr-left"><mat-icon>person_outline</mat-icon> Mi Perfil</span>
-  <button mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
+  <div class="hdr-left">
+    <mat-icon>person_outline</mat-icon>
+    <span>Mi Perfil</span>
+  </div>
+  <button mat-icon-button mat-dialog-close aria-label="Cerrar">
+    <mat-icon>close</mat-icon>
+  </button>
 </h2>
 
 <mat-dialog-content class="body">
   <mat-tab-group>
+    <!-- Pestaña: Información -->
     <mat-tab label="Información">
       <section class="info">
-        <div class="avatar">{{ initials }}</div>
+        <div class="avatar">{{ initials() }}</div>
         <div class="data">
-          <h3>{{ user.nombre }} {{ user.apellido }}</h3>
+          <h3 class="name">{{ user.nombre }} {{ user.apellido }}</h3>
           <div class="role">Profesor</div>
-          <div class="row"><mat-icon>email</mat-icon> {{ user.email }}</div>
-          <div class="row"><mat-icon>call</mat-icon> {{ user.telefono }}</div>
-          <div class="row"><mat-icon>home</mat-icon> {{ user.direccion }}</div>
-          <div class="row"><mat-icon>badge</mat-icon> DNI: {{ user.dni }}</div>
+
+          <div class="grid">
+            <div class="row">
+              <mat-icon>badge</mat-icon>
+              <div>
+                <div class="label">DNI</div>
+                <div class="value">{{ user.dni }}</div>
+              </div>
+            </div>
+
+            <div class="row">
+              <mat-icon>confirmation_number</mat-icon>
+              <div>
+                <div class="label">Legajo</div>
+                <div class="value">{{ user.legajo }}</div>
+              </div>
+            </div>
+
+            <div class="row">
+              <mat-icon>school</mat-icon>
+              <div>
+                <div class="label">Título</div>
+                <div class="value">{{ user.titulo }}</div>
+              </div>
+            </div>
+
+            <div class="row">
+              <mat-icon>email</mat-icon>
+              <div>
+                <div class="label">Email</div>
+                <div class="value">{{ user.email }}</div>
+              </div>
+            </div>
+
+            <div class="row">
+              <mat-icon>call</mat-icon>
+              <div>
+                <div class="label">Teléfono</div>
+                <div class="value">{{ user.telefono }}</div>
+              </div>
+            </div>
+
+            <div class="row">
+              <mat-icon>home</mat-icon>
+              <div>
+                <div class="label">Dirección</div>
+                <div class="value">{{ user.direccion }}</div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </mat-tab>
 
+    <!-- Pestaña: Perfil (edición) -->
     <mat-tab label="Perfil">
       <section class="form">
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input matInput [(ngModel)]="user.nombre">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Apellido</mat-label>
+          <input matInput [(ngModel)]="user.apellido">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" [(ngModel)]="user.email">
+        </mat-form-field>
+
         <mat-form-field appearance="fill">
           <mat-label>Teléfono</mat-label>
           <input matInput [(ngModel)]="user.telefono">
@@ -31,12 +99,18 @@
           <input matInput [(ngModel)]="user.direccion">
         </mat-form-field>
 
-        <button mat-flat-button color="primary">
-          <mat-icon>save</mat-icon> Guardar cambios
-        </button>
+        <div class="actions">
+          <button mat-stroked-button (click)="cerrar()">
+            <mat-icon>close</mat-icon> Cancelar
+          </button>
+          <button mat-flat-button color="primary" (click)="guardar()">
+            <mat-icon>save</mat-icon> Guardar cambios
+          </button>
+        </div>
       </section>
     </mat-tab>
 
+    <!-- Pestaña: Configuración -->
     <mat-tab label="Configuración">
       <section class="config">
         <h4>Tema de la aplicación</h4>
@@ -46,6 +120,11 @@
           Modo oscuro
         </mat-slide-toggle>
         <p class="hint">Se guarda para tu próxima sesión.</p>
+
+        <mat-divider class="sep"></mat-divider>
+
+        <h4>Preferencias</h4>
+        <p class="muted">Acá podrías sumar switches de notificaciones, idioma, etc.</p>
       </section>
     </mat-tab>
   </mat-tab-group>
