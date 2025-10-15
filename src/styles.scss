@@ -1,0 +1,240 @@
+@use '@angular/material' as mat;
+
+/* ================================
+   PALETAS INSTITUCIONALES
+   ================================ */
+$primary: mat.define-palette(mat.$red-palette, 700);
+$accent:  mat.define-palette(mat.$blue-palette, 600);
+$warn:    mat.define-palette(mat.$red-palette);
+
+/* ================================
+   TEMA CLARO (MATERIAL)
+   ================================ */
+$light-theme: mat.define-light-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,  // ✅ clave correcta
+    warn: $warn,
+  ),
+  density: 0
+));
+
+/* ================================
+   TEMA OSCURO (MATERIAL)
+   ================================ */
+$dark-theme: mat.define-dark-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,  // ✅ clave correcta
+    warn: $warn,
+  ),
+  density: 0
+));
+
+/* ================================
+   APLICACIÓN POR CLASE (recomendado)
+   ================================ */
+.light-theme {
+  @include mat.all-component-themes($light-theme);
+
+  /* Fondo / texto global */
+  background: #f8fafc;
+  color: #1f2937;
+
+  /* Ajustes suaves para fondo y contenedores */
+  --app-bg: #f8fafc;
+  --app-surface: #ffffff;
+  --app-text: #1f2937;
+  --app-muted: #4b5563;
+  --app-border: rgba(0,0,0,.08);
+  --app-hover: rgba(0,0,0,.06);
+  --app-shadow: 0 6px 18px rgba(0,0,0,.06), 0 1px 1px rgba(0,0,0,.04);
+}
+
+.dark-theme {
+  @include mat.all-component-themes($dark-theme);
+
+  background: #0a0f1c;
+  color: #f3f4f6;
+
+  --app-bg: #0a0f1c;
+  --app-surface: #111827;
+  --app-text: #f3f4f6;
+  --app-muted: #9ca3af;
+  --app-border: rgba(255,255,255,.10);
+  --app-hover: rgba(255,255,255,.08);
+  --app-shadow: none;
+}
+
+/* ================================
+   OVERRIDES SUAVES PARA LA UI
+   (Se aplican en ambos temas)
+   ================================ */
+
+html, body {
+  min-height: 100%;
+}
+
+body {
+  background: var(--app-bg);
+  color: var(--app-text);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+  transition: background-color .25s ease, color .25s ease;
+}
+
+/* Containers y cards */
+.mat-mdc-card,
+.mat-mdc-dialog-container .mdc-dialog__surface,
+.mat-mdc-menu-panel,
+.mat-mdc-select-panel,
+section, .panel, .card, .dashboard-card {
+  background: var(--app-surface) !important;
+  color: var(--app-text) !important;
+  border: 1px solid var(--app-border) !important;
+  box-shadow: var(--app-shadow) !important;
+  border-radius: 12px !important;
+}
+
+/* Header / topbar / toolbars */
+header, .topbar, .shell, .mat-toolbar {
+  background: var(--app-surface) !important;
+  color: var(--app-text) !important;
+  border-bottom: 1px solid var(--app-border) !important;
+  box-shadow: var(--app-shadow) !important;
+}
+
+/* Inputs y labels */
+.mdc-text-field, .mat-mdc-text-field-wrapper, .mdc-text-field--filled {
+  background: var(--app-surface) !important;
+  color: var(--app-text) !important;
+}
+.mdc-text-field__input, .mat-mdc-input-element { color: var(--app-text) !important; }
+.mdc-floating-label, .mat-mdc-form-field-label { color: var(--app-muted) !important; }
+.mdc-line-ripple, .mdc-line-ripple::after { background: mat.get-theme-color($light-theme, primary, 40) !important; }
+
+/* Listas/menús */
+.mdc-list-item__primary-text,
+.mdc-list-item__secondary-text,
+.mat-mdc-list-item .mdc-list-item__primary-text,
+.mat-mdc-menu-item .mdc-list-item__primary-text {
+  color: var(--app-text) !important;
+}
+.mdc-list-item:hover,
+.mat-mdc-menu-item:hover { background: var(--app-hover) !important; }
+
+/* Iconos */
+mat-icon, i, svg { color: var(--app-text) !important; }
+
+/* Botones */
+button, .mat-mdc-button, .mat-mdc-raised-button, .mat-mdc-stroked-button, .mat-mdc-unelevated-button {
+  color: var(--app-text);
+}
+button:hover { background: var(--app-hover) !important; }
+
+/* Paginador / tablas (borde y fondo) */
+.mat-mdc-paginator, .mat-mdc-table, .mdc-data-table__content {
+  background: var(--app-surface) !important;
+  color: var(--app-text) !important;
+  border-color: var(--app-border) !important;
+}
+
+/* Transición suave global */
+* { transition: background-color .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease; }
+
+.light-theme {
+  @include mat.all-component-themes($light-theme);
+  background: #f8fafc;
+  color: #1f2937;
+
+  --app-bg: #f8fafc;
+  --app-surface: #ffffff;
+  --app-text: #1f2937;
+  --app-muted: #4b5563;
+  --app-border: rgba(0,0,0,.08);
+  --app-hover: rgba(0,0,0,.05);
+  --app-shadow: 0 6px 16px rgba(0,0,0,.08);
+}
+
+.dark-theme {
+  @include mat.all-component-themes($dark-theme);
+  background: #0a0f1c;
+  color: #f3f4f6;
+
+  --app-bg: #0a0f1c;
+  --app-surface: #111827;
+  --app-text: #f3f4f6;
+  --app-muted: #9ca3af;
+  --app-border: rgba(255,255,255,.10);
+  --app-hover: rgba(255,255,255,.08);
+  --app-shadow: none;
+}
+
+
+
+/* === Login y páginas personalizadas === */
+
+.page, main, .auth-container, .login-box {
+  background: var(--app-bg);
+  color: var(--app-text);
+}
+
+.card, .panel, .login-card, .custom-card {
+  background: var(--app-surface);
+  color: var(--app-text);
+  border: 1px solid var(--app-border);
+  box-shadow: var(--app-shadow);
+  border-radius: 12px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--app-text);
+}
+
+p, span, label, input, .text-muted {
+  color: var(--app-muted);
+}
+
+input, textarea {
+  background: var(--app-surface);
+  color: var(--app-text);
+  border: 1px solid var(--app-border);
+  border-radius: 8px;
+  padding: 8px;
+  width: 100%;
+}
+
+input::placeholder {
+  color: var(--app-muted);
+}
+
+button {
+  transition: all 0.2s ease;
+}
+
+button.primary {
+  background: #dc2626;
+  color: #fff;
+  border: none;
+}
+
+button.primary:hover {
+  background: #b91c1c;
+}
+
+button.secondary {
+  background: var(--app-hover);
+  color: var(--app-text);
+  border: 1px solid var(--app-border);
+}
+
+
+.mat-mdc-form-field-label,
+.mdc-floating-label,
+.mat-mdc-input-element,
+.mdc-text-field__input {
+  color: var(--app-text) !important;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  color: var(--app-muted) !important;
+}

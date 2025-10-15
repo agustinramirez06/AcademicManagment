@@ -1,0 +1,79 @@
+<header class="topbar mat-elevation-z2">
+  <button class="hamb" mat-icon-button (click)="toggleDrawer()" aria-label="Abrir menú">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <a class="brand" routerLink="/profesor">
+    <img class="logo" src="assets/logo.png" alt="Instituto" />
+    <div class="brand-text">
+      <span class="title">Instituto del Profesorado</span>
+      <span class="subtitle">Francisco de Paula Robles</span>
+    </div>
+    <span class="role-badge">Profesor</span>
+  </a>
+
+  <nav class="nav">
+    @for (item of nav(); track item.link) {
+      <a class="nav-link"
+         [routerLink]="item.link"
+         routerLinkActive="active">
+        <mat-icon class="ni">{{item.icon}}</mat-icon>
+        <span>{{ item.label }}</span>
+      </a>
+    }
+  </nav>
+
+  <div class="actions">
+    <button mat-icon-button
+            routerLink="/profesor/notificaciones"
+            [matBadge]="unread()"
+            matBadgeColor="warn"
+            [matBadgeHidden]="unread() === 0">
+      <mat-icon>notifications</mat-icon>
+    </button>
+
+    <button mat-button [matMenuTriggerFor]="menu" class="user">
+      <span class="avatar">{{ initials() }}</span>
+      <span class="name">{{ displayName() }}</span>
+      <mat-icon>expand_more</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" xPosition="before">
+      <button mat-menu-item (click)="abrirPerfil()">
+        <mat-icon>person</mat-icon> <span>Mi perfil</span>
+      </button>
+      <button mat-menu-item routerLink="/profesor/notificaciones">
+        <mat-icon>notifications</mat-icon> <span>Notificaciones</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon> <span>Cerrar sesión</span>
+      </button>
+    </mat-menu>
+  </div>
+</header>
+
+<mat-sidenav-container class="container">
+  <mat-sidenav #drawer mode="over" class="drawer">
+    <div class="drawer-head">
+      <div class="avatar big">{{ initials() }}</div>
+      <div class="who">
+        <div class="nm">{{ displayName() }}</div>
+        <div class="role">Profesor</div>
+      </div>
+      <button mat-icon-button (click)="toggleDrawer()"><mat-icon>close</mat-icon></button>
+    </div>
+    <mat-nav-list (click)="toggleDrawer()">
+      @for (item of nav(); track item.link) {
+        <a mat-list-item [routerLink]="item.link">
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          <div matListItemTitle>{{ item.label }}</div>
+        </a>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <main class="page">
+      <router-outlet/>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

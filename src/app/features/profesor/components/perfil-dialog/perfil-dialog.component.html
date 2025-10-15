@@ -1,0 +1,52 @@
+<h2 mat-dialog-title class="hdr">
+  <span class="hdr-left"><mat-icon>person_outline</mat-icon> Mi Perfil</span>
+  <button mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
+</h2>
+
+<mat-dialog-content class="body">
+  <mat-tab-group>
+    <mat-tab label="Información">
+      <section class="info">
+        <div class="avatar">{{ initials }}</div>
+        <div class="data">
+          <h3>{{ user.nombre }} {{ user.apellido }}</h3>
+          <div class="role">Profesor</div>
+          <div class="row"><mat-icon>email</mat-icon> {{ user.email }}</div>
+          <div class="row"><mat-icon>call</mat-icon> {{ user.telefono }}</div>
+          <div class="row"><mat-icon>home</mat-icon> {{ user.direccion }}</div>
+          <div class="row"><mat-icon>badge</mat-icon> DNI: {{ user.dni }}</div>
+        </div>
+      </section>
+    </mat-tab>
+
+    <mat-tab label="Perfil">
+      <section class="form">
+        <mat-form-field appearance="fill">
+          <mat-label>Teléfono</mat-label>
+          <input matInput [(ngModel)]="user.telefono">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full">
+          <mat-label>Dirección</mat-label>
+          <input matInput [(ngModel)]="user.direccion">
+        </mat-form-field>
+
+        <button mat-flat-button color="primary">
+          <mat-icon>save</mat-icon> Guardar cambios
+        </button>
+      </section>
+    </mat-tab>
+
+    <mat-tab label="Configuración">
+      <section class="config">
+        <h4>Tema de la aplicación</h4>
+        <mat-slide-toggle color="primary"
+                          [checked]="isDark()"
+                          (change)="toggleTheme($event.checked)">
+          Modo oscuro
+        </mat-slide-toggle>
+        <p class="hint">Se guarda para tu próxima sesión.</p>
+      </section>
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>
