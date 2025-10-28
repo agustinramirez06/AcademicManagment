@@ -1,37 +1,24 @@
 <header class="topbar mat-elevation-z3">
-  <!-- Botón hamburguesa (pantallas chicas) -->
-  <button class="hamb" mat-icon-button (click)="toggleDrawer()" aria-label="Abrir menú">
-    <mat-icon>menu</mat-icon>
-  </button>
-
   <!-- Marca -->
   <a class="brand" routerLink="/profesor">
-    <img class="logo" src="assets/logo.png" alt="Instituto" />
-    <div class="brand-text">
-      <span class="title">Instituto Paula Robles</span>
-    </div>
+    <img class="logo" src="assets/logo.png" alt="Instituto del Profesorado" />
   </a>
 
-  <!-- Navegación principal -->
-  <nav class="nav">
-    @for (item of nav(); track item.link) {
+  <!-- NAV con scroll horizontal -->
+  <nav class="nav scroller" aria-label="Secciones del profesor">
+    @for (item of nav; track item.link) {
       <a class="nav-link"
-        [routerLink]="item.link"
-        routerLinkActive="active"
-        #rla="routerLinkActive"
-        [attr.aria-current]="rla.isActive ? 'page' : null">
-        <span class="indicator" *ngIf="rla.isActive"></span>
+         [routerLink]="item.link"
+         routerLinkActive="active"
+         #rla="routerLinkActive"
+         [attr.aria-current]="rla.isActive ? 'page' : null">
         <mat-icon class="ni">{{ item.icon }}</mat-icon>
-        <span>{{ item.label }}</span>
+        <span class="label">{{ item.label }}</span>
       </a>
     }
   </nav>
 
-  <button class="hamb" mat-icon-button (click)="toggleDrawer()" aria-label="Abrir menú">
-    <mat-icon>menu</mat-icon>
-  </button>
-
-  <!-- Acciones (notificaciones, perfil, etc.) -->
+  <!-- Acciones -->
   <div class="actions">
     <button mat-icon-button
             [routerLink]="['/profesor/notificaciones']"
@@ -56,6 +43,11 @@
       </button>
     </mat-menu>
   </div>
+
+  <!-- Hamburguesa móvil -->
+  <button class="hamb" mat-icon-button (click)="toggleDrawer()" aria-label="Abrir menú">
+    <mat-icon>menu</mat-icon>
+  </button>
 </header>
 
 <mat-sidenav-container class="container">
@@ -70,7 +62,7 @@
     </div>
 
     <mat-nav-list (click)="toggleDrawer()">
-      @for (item of nav(); track item.link) {
+      @for (item of nav; track item.link) {
         <a mat-list-item [routerLink]="item.link">
           <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
           <div matListItemTitle>{{ item.label }}</div>
@@ -81,7 +73,7 @@
 
   <mat-sidenav-content>
     <main class="page">
-      <router-outlet/>
+      <router-outlet />
     </main>
   </mat-sidenav-content>
 </mat-sidenav-container>

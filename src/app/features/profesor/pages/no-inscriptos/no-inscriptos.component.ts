@@ -48,12 +48,12 @@ import { AlumnosFacade, NoIncriptoItem } from '../../services/alumnos.facade';
   </div>
   `,
   styles: [`
-    :host { display:block; color:#e5e7eb; }
+  :host { display:block; color:var(--app-text); }
     .page { display:flex; flex-direction:column; gap:14px; }
     .header { display:flex; align-items:center; justify-content:space-between; }
-    .export { background:#7f1d1d; color:#ffdee0; }
+  .export { background:var(--accent-red); color:#fff; }
 
-    .panel { background:#0f172a; border:1px solid rgba(255,255,255,.08); border-radius:12px; }
+  .panel { background:var(--app-surface); border:1px solid var(--app-border); border-radius:12px; }
     .table { overflow:hidden; }
 
     .thead, .tr {
@@ -61,14 +61,14 @@ import { AlumnosFacade, NoIncriptoItem } from '../../services/alumnos.facade';
       grid-template-columns: 2fr 2fr 1fr 2fr 2fr 1fr;
       gap:10px; padding:12px 14px;
     }
-    .thead { color:#9aa3b2; border-bottom:1px solid rgba(255,255,255,.06); }
-    .tr { border-bottom:1px solid rgba(255,255,255,.04); }
+  .thead { color:var(--app-muted); border-bottom:1px solid var(--app-border); }
+  .tr { border-bottom:1px solid var(--app-border); }
     .right { text-align:right; }
-    .empty { padding:16px; text-align:center; color:#9aa3b2; }
+    .empty { padding:16px; text-align:center; color:var(--app-muted); }
 
     .chip-outline {
       display:inline-block; font-size:12px; padding:4px 10px; border-radius:10px;
-      color:#fca5a5; border:1px solid rgba(252,165,165,.45); background:transparent;
+      color:var(--accent-red); border:1px solid color-mix(in srgb, var(--accent-red) 40%, transparent); background:transparent;
     }
 
     .ellipsis { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }

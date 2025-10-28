@@ -55,34 +55,33 @@ import { InscriptosFacade, IncriptoItem } from '../../services/inscriptos.facade
   </div>
   `,
   styles: [`
-    :host { display:block; color:#e5e7eb; }
+  :host { display:block; color: var(--app-text); }
     .page { display:flex; flex-direction:column; gap:14px; }
-    .header { display:flex; align-items:center; justify-content:space-between; gap:12px; }
-    .actions { display:flex; align-items:center; gap:10px; }
-    .selector { min-width: 220px; background:#0f172a; border-radius:8px; padding:0 6px; }
-    .export { background:#7f1d1d; color:#ffdee0; }
-
-    .panel { background:#0f172a; border:1px solid rgba(255,255,255,.08); border-radius:12px; }
-    .table { overflow:hidden; }
-    .thead, .tr {
-      display:grid; align-items:center;
-      grid-template-columns: 2fr 2fr 1.2fr 1fr 1.2fr;
-      gap:10px; padding:12px 14px;
-    }
-    .thead { color:#9aa3b2; border-bottom:1px solid rgba(255,255,255,.06); }
-    .tr { border-bottom:1px solid rgba(255,255,255,.04); }
-
-    .badge { background:#7f1d1d; color:#ffdfe0; border-radius:10px; padding:4px 10px; font-size:12px; }
+    /* Header: allow wrapping on small screens so actions don't overlap */
+    .header { display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap; }
+    .header h2 { font-size:1.5rem; font-weight:700; margin:0; color:var(--app-text); }
+    .actions { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    .selector { min-width:180px; }
+    .export { background:var(--accent-red); color:#fff; font-weight:600; }
+    .table.panel { background:var(--app-surface); border-radius:12px; box-shadow:var(--app-shadow); padding:0; overflow-x:auto; min-width:600px; }
+    .thead, .tbody, .tr { display:grid; grid-template-columns:2fr 2fr 2fr 1fr 2fr; align-items:center; }
+    .thead { font-weight:600; color:var(--app-muted); border-bottom:1px solid var(--app-border); background:var(--app-bg); }
+    .tr { border-bottom:1px solid var(--app-border); }
+    .badge { background:var(--accent-red); color:#fff; border-radius:8px; padding:2px 10px; font-size:0.95em; font-weight:500; }
     .right { text-align:right; }
-    .empty { padding:16px; text-align:center; color:#9aa3b2; }
-
-    @media (max-width: 980px) {
-      .thead, .tr { grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr; }
+    .empty { padding:24px; text-align:center; color:var(--app-muted); }
+    @media (max-width:900px) {
+      .header { flex-direction:column; align-items:flex-start; gap:10px; }
+      .actions { width:100%; justify-content:flex-start; }
+      .table.panel { box-shadow:none; border-radius:0; min-width:100vw; }
+      .thead, .tbody, .tr { grid-template-columns:1.5fr 1.5fr 1.5fr 1fr 1.5fr; font-size:0.95em; }
     }
-    @media (max-width: 760px) {
-      .thead, .tr { grid-template-columns: 2fr 1fr 1fr; }
-      .thead > :nth-child(3), .tr > :nth-child(3),
-      .thead > :nth-child(5), .tr > :nth-child(5) { display:none; } /* oculta fechas en móvil */
+    @media (max-width:600px) {
+      .header { flex-direction:column; gap:8px; }
+      .actions { flex-direction:column; gap:8px; width:100%; }
+      .table.panel { padding:0; min-width:100vw; }
+      .thead, .tbody, .tr { grid-template-columns:1fr 1fr 1fr 1fr 1fr; font-size:0.92em; }
+      .badge { font-size:0.9em; padding:2px 6px; }
     }
   `]
 })

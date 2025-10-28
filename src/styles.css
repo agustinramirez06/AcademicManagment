@@ -4,9 +4,39 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .dialog-dark .mdc-dialog__surface {
-  background: #0f172a !important;
-  color: #e5e7eb !important;
-  border: 1px solid rgba(255,255,255,.08);
+  background: var(--app-surface) !important;
+  color: var(--app-text) !important;
+  border: 1px solid var(--app-border);
   border-radius: 14px;
 }
 
+.nav-link.active {
+  background-color: var(--header-accent) !important; /* 👈 fuerza el color rojo */
+  color: #fff !important;
+  font-weight: 600;
+}
+.nav-link.active .ni {
+  color: #fff !important;
+}
+
+/* Global fixes to ensure contrast in light mode */
+/* Force avatar contrast (initials) to be visible on any theme */
+.topbar .avatar, .avatar {
+  background: var(--header-accent) !important;
+  color: #fff !important;
+}
+
+/* Export / accent buttons: ensure text is white when using accent background */
+button.export, button.mat-flat-button.export, .export[mat-flat-button] {
+  color: #fff !important;
+}
+
+/* Badges that use accent color should show white text */
+.badge.inscripto, .bubble, .pill.error, .chip.orange {
+  color: #fff !important;
+}
+
+/* If some elements still get dark text due to specificity, this fallback helps for any element using the accent red */
+[class*="accent-red"], .uses-accent, .accented {
+  color: #fff !important;
+}

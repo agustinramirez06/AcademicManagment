@@ -1,83 +1,179 @@
-/* Valores por defecto (por si no cargó la clase aún) */
-:host {
-  --header-bg: #ffffff;
-  --header-text: #1e293b;
-  --header-hover: rgba(0,0,0,0.04);
-  --header-accent: #dc2626;
-  --header-accent-bg: rgba(220,38,38,0.12);
-}
+/* ——— Colores de tema y acento ——— */
+:root { --accent-red: #7f1d1d; } /* mismo rojo que tu chip “programado” */
 
-/* ⬛️ Tema oscuro: ahora con body.dark-theme (no html[data-theme]) */
+/* Oscuro */
 :host-context(body.dark-theme) {
   --header-bg: #0f172a;
   --header-text: #f1f5f9;
-  --header-hover: rgba(255,255,255,0.08);
-  --header-accent: #f87171;
-  --header-accent-bg: rgba(248,113,113,0.18);
+  --header-hover: rgba(255, 255, 255, 0.1);
+  --header-accent: var(--accent-red);
+  --app-border: rgba(255, 255, 255, 0.1);
 }
 
-/* ⬜️ Tema claro */
+/* Claro */
 :host-context(body.light-theme) {
   --header-bg: #ffffff;
   --header-text: #1e293b;
-  --header-hover: rgba(0,0,0,0.06);
-  --header-accent: #dc2626;
-  --header-accent-bg: rgba(220,38,38,0.14);
+  --header-hover: rgba(0, 0, 0, 0.06);
+  --header-accent: var(--accent-red);
+  --app-border: rgba(0, 0, 0, 0.1);
 }
 
-/* Topbar */
+/* ——— Topbar/Brand/Actions ——— */
 .topbar {
   position: sticky; top: 0; z-index: 100;
   display: flex; align-items: center; gap: 16px;
   padding: 10px 20px;
-  background: var(--header-bg);
-  color: var(--header-text);
+  background: var(--header-bg); color: var(--header-text);
   border-bottom: 1px solid var(--app-border);
   transition: background .25s ease, color .25s ease, border-color .25s ease;
 }
 
-/* Marca */
-.brand { display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit; }
-.logo { width:36px; height:36px; border-radius:8px; object-fit:cover; }
-.brand-text { display:flex; flex-direction:column; line-height:1.05; }
-.title { font-weight:700; }
-.subtitle { font-size:12px; opacity:.8; }
+.brand { display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; }
+.logo  { width: 42px; height: 42px; border-radius: 8px; object-fit: cover; }
+.brand-text { display: flex; flex-direction: column; line-height: 1.05; }
+.title { font-weight: 700; font-size: 16px; }
+.subtitle { font-size: 12px; opacity: .75; }
 
-/* Nav */
-.nav { display:flex; align-items:center; gap:10px; margin-left:20px; flex:1; }
+.actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.user { text-transform: none; color: var(--header-text); border-radius: 8px; }
+.avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--header-accent);
+  display: grid; place-items: center; color:#fff; font-weight:700; margin-right: 6px; }
+
+/* ——— Nav con scroll horizontal ——— */
+.nav.scroller {
+  max-width: clamp(520px, 100vw, 1500px);
+  display: flex; align-items: center; gap: 8px;
+  overflow-x: auto; overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  padding-bottom: 2px; margin-left: 12px;
+  scrollbar-color: var(--app-border) transparent; scrollbar-width: thin;
+}
+.nav.scroller::-webkit-scrollbar { height: 8px; }
+.nav.scroller::-webkit-scrollbar-track { background: transparent; }
+.nav.scroller::-webkit-scrollbar-thumb { background: var(--app-border); border-radius: 999px; }
+.nav.scroller:hover::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--app-border) 65%, var(--header-text) 35%);
+}
+
+/* Botones uniformes */
 .nav-link {
-  position:relative; display:flex; align-items:center; gap:8px;
-  padding:8px 14px; border-radius:10px; text-decoration:none;
-  color: var(--header-text);
-  transition: background .2s ease, color .2s ease;
-  font-weight: 500;
+  flex: 0 0 auto;
+  height: 42px; line-height: 42px; padding: 0 14px;
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; border-radius: 8px;
+  color: var(--header-text); background: transparent;
+  white-space: nowrap; transition: background .2s ease, color .2s ease;
+  scroll-snap-align: start;
 }
-.nav-link:hover { background: var(--header-hover); color: var(--header-accent); }
+.nav-link .label {
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 24ch;
+}
+.nav-link .ni { font-size: 20px; opacity: .95; }
+
+.nav-link:hover { background: var(--header-hover); }
+
+/* 🔴 Acento visible sí o sí */
 .nav-link.active {
-  background: var(--header-accent-bg);
-  color: var(--header-accent);
-  font-weight: 700;
+  background-color: var(--header-accent) !important;
+  color: #fff !important;
+  font-weight: 600;
 }
-.nav-link .ni { opacity:.95; }
-.nav-link.active .ni { color: var(--header-accent); }
+.nav-link.active .ni { color: #fff !important; }
 
-/* Indicador visible y contrastado */
-.indicator {
-  position:absolute; left:12px; right:12px; bottom:-6px;
-  height:3px; border-radius:3px; background: var(--header-accent);
-  animation: indicatorIn .25s ease;
+/* ——— Responsive fino ——— */
+.topbar > .hamb { display: none; }
+
+@media (max-width: 1280px) {
+  .nav.scroller { max-width: clamp(460px, 52vw, 820px); }
+  .nav-link { height: 40px; line-height: 40px; padding: 0 12px; }
+  .logo { width: 38px; height: 38px; }
+  .topbar > .hamb { display: none; }
 }
-@keyframes indicatorIn { from { opacity:0; transform:scaleX(.5); } to { opacity:1; transform:scaleX(1); } }
-
-/* Acciones y usuario */
-.actions { display:flex; align-items:center; gap:10px; margin-left:auto; }
-.user { text-transform:none; color: var(--header-text); }
-.avatar { width:30px; height:30px; border-radius:50%; background: var(--header-accent);
-  display:grid; place-items:center; color:#fff; font-weight:800; margin-right:6px; }
-
-/* Hamburguesa: OCULTA en desktop, VISIBLE solo en móviles */
-.hamb { display:none; }
+@media (max-width: 1024px) {
+  .brand-text .subtitle { display: none; }
+  .nav.scroller { max-width: clamp(420px, 52vw, 760px); } 
+  .topbar > .hamb { display: none; }
+}
 @media (max-width: 980px) {
-  .nav { display:none; }       /* ocultar la nav en móvil */
-  .hamb { display:inline-flex; } /* mostrar hamburguesa en móvil */
+  .nav.scroller { display: none; }
+  .topbar > .hamb { display: inline-flex; }
 }
+@media (max-width: 600px) {
+  .topbar { padding: 8px 12px; gap: 10px; }
+  .logo { width: 34px; height: 34px; }
+  .title { font-size: 15px; }
+  .actions { gap: 6px; }
+  .user .name { display: none; }
+  .topbar > .hamb { display: inline-flex; }
+}
+
+// Hamburguesa solo en móvil
+.hamb {
+  position: relative;
+  z-index: 101;
+  margin-left: 12px;
+  color: var(--header-text);
+  background: none;
+  border: none;
+  display: none;
+}
+@media (max-width: 900px) {
+  .hamb {
+    display: block;
+  }
+  .nav.scroller {
+    display: none;
+  }
+}
+
+// Sidenav overlay fixes: ensure drawer sits above everything and scrolls if content is long
+mat-sidenav-container.container, .container {
+  position: relative;
+  min-height: calc(100vh - 56px);
+}
+
+.drawer {
+  z-index: 3000; /* above header and content */
+  height: 100vh; /* full viewport so it never gets clipped */
+  overflow-y: auto; /* allow scrolling inside drawer */
+  width: 270px;
+  color: var(--app-text);
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 9999;
+  box-shadow: 0 0 24px rgba(0,0,0,.12);
+  border-right: 1px solid var(--app-border);
+  padding: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+/* Force the overlay panel to render above other material panels if needed */
+mat-sidenav.mat-drawer { z-index: 3000; }
+
+/* Drawer visual improvements: surface color, padding, nice list items */
+.drawer {
+  color: var(--app-text);
+  padding-bottom: 32px;
+}
+
+.drawer-head {
+  display:flex; align-items:center; gap:12px; padding:16px; border-bottom:1px solid var(--app-border);
+}
+.drawer-head .avatar.big { width:56px; height:56px; border-radius:10px; background:var(--accent-red); color:#fff; display:grid; place-items:center; font-weight:700; }
+.drawer-head .who { display:flex; flex-direction:column; }
+.drawer-head .nm { font-weight:700; }
+.drawer-head .role { color:var(--app-muted); font-size:13px; }
+
+/* Make nav list items clearer */
+.drawer .mat-mdc-list-item {
+  border-radius:8px; margin:6px 8px; padding:8px 12px; color:var(--app-text);
+}
+.drawer .mat-mdc-list-item:hover { background: var(--app-hover); }
+.drawer .mat-mdc-list-item mat-icon { color: var(--accent-red); margin-right:8px; }
+
+/* Ensure the drawer overlay covers entire viewport and its backdrop remains usable */
+.cdk-overlay-pane { z-index: 2999 !important; }

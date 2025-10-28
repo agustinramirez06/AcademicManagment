@@ -48,18 +48,18 @@ import { ActaDetalleDialogComponent } from '../../shared/acta-detalle-dialog.com
   </div>
   `,
   styles: [`
-    :host { display:block; color:#e5e7eb; }
+  :host { display:block; color:var(--app-text); }
     .page { display:flex; flex-direction:column; gap:14px; }
     .header { display:flex; align-items:center; justify-content:space-between; }
-    .export { background:#7f1d1d; color:#ffdee0; }
-    .panel { background:#0f172a; border:1px solid rgba(255,255,255,.08); border-radius:12px; }
+  .export { background:var(--accent-red); color:#fff; }
+  .panel { background:var(--app-surface); border:1px solid var(--app-border); border-radius:12px; }
     .table { overflow:hidden; }
     .thead, .tr { display:grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap:10px; padding:12px 14px; }
-    .thead { color:#9aa3b2; border-bottom:1px solid rgba(255,255,255,.06); }
-    .tr { border-bottom:1px solid rgba(255,255,255,.04); align-items:center; }
+  .thead { color:var(--app-muted); border-bottom:1px solid var(--app-border); }
+  .tr { border-bottom:1px solid var(--app-border); align-items:center; }
     .right { text-align:right; }
-    .badge { background:#7f1d1d; color:#ffdfe0; border-radius:10px; padding:4px 10px; font-size:12px; }
-    .empty { padding:16px; text-align:center; color:#9aa3b2; }
+  .badge { background:var(--accent-red); color:#fff; border-radius:10px; padding:4px 10px; font-size:12px; }
+  .empty { padding:16px; text-align:center; color:var(--app-muted); }
   `]
 })
 export class ListadoActasComponent {

@@ -7,6 +7,11 @@ $primary: mat.define-palette(mat.$red-palette, 700);
 $accent:  mat.define-palette(mat.$blue-palette, 600);
 $warn:    mat.define-palette(mat.$red-palette);
 
+:root {
+  /* Rojo institucional del sistema */
+  --accent-red: #7f1d1d;
+}
+
 /* ================================
    TEMA CLARO (MATERIAL)
    ================================ */
@@ -238,3 +243,51 @@ button.secondary {
 .mat-mdc-form-field-subscript-wrapper {
   color: var(--app-muted) !important;
 }
+
+/* Utility: permit horizontal scrolling for wide tables or content */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  min-width: 600px;
+}
+
+.table-responsive > table {
+  width: 100%;
+  min-width: 640px; /* allow tables to keep columns but enable scroll */
+}
+
+/* ==========================
+   Forzar botones accent en modo claro
+   ========================== */
+/* Aplica fondo --accent-red y texto blanco. Remueve overlays grises y sombras que puedan ocultar el color. */
+.light-theme .export,
+.light-theme button.primary,
+.light-theme .uses-accent,
+.light-theme .accented,
+.light-theme .mat-mdc-button.mat-mdc-flat-button,
+.light-theme .mat-mdc-button.mat-mdc-raised-button,
+.light-theme .mat-mdc-button.mat-mdc-unelevated-button {
+  background-color: var(--accent-red) !important;
+  color: #fff !important;
+  border-color: var(--accent-red) !important;
+  box-shadow: none !important;
+}
+
+/* Mantener color en hover/active para que no aparezca gris */
+.light-theme .export:hover,
+.light-theme button.primary:hover,
+.light-theme .mat-mdc-button.mat-mdc-flat-button:hover,
+.light-theme .mat-mdc-button.mat-mdc-raised-button:hover {
+  background-color: var(--accent-red) !important;
+  filter: brightness(.95) !important;
+}
+
+/* Evitar overlays/ripples que apagan el color en algunos navegadores o temas */
+.light-theme .mat-mdc-button .mdc-button__ripple,
+.light-theme .mat-mdc-button::before,
+.light-theme .mat-mdc-button::after,
+.light-theme .mat-mdc-button .mat-mdc-button-focus-overlay {
+  background: transparent !important;
+}
+

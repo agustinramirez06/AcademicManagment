@@ -40,22 +40,22 @@ import { CorrelativasFacade, CorrelativaRow } from '../../services/correlativas.
   </div>
   `,
   styles: [`
-    :host { display:block; color:#e5e7eb; }
+  :host { display:block; color:var(--app-text); }
     .page { display:flex; flex-direction:column; gap:14px; }
     .header { display:flex; align-items:center; justify-content:space-between; }
-    .export { background:#7f1d1d; color:#ffdee0; }
+  .export { background:var(--accent-red); color:#fff; }
 
-    .panel { background:#0f172a; border:1px solid rgba(255,255,255,.08); border-radius:12px; }
+  .panel { background:var(--app-surface); border:1px solid var(--app-border); border-radius:12px; }
     .table { overflow:hidden; }
     .thead, .tr {
       display:grid; align-items:center;
       grid-template-columns: 2fr 2fr 0.6fr;
       gap:10px; padding:12px 14px;
     }
-    .thead { color:#9aa3b2; border-bottom:1px solid rgba(255,255,255,.06); }
-    .tr    { border-bottom:1px solid rgba(255,255,255,.04); }
+  .thead { color:var(--app-muted); border-bottom:1px solid var(--app-border); }
+  .tr    { border-bottom:1px solid var(--app-border); }
     .right { text-align:right; }
-    .empty { padding:16px; text-align:center; color:#9aa3b2; }
+  .empty { padding:16px; text-align:center; color:var(--app-muted); }
 
     @media (max-width: 820px) {
       .thead, .tr { grid-template-columns: 2fr 1.2fr; }

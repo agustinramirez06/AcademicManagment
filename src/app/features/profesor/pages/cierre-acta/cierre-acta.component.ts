@@ -59,12 +59,12 @@ type Mesa = { id: number; materia: string; fecha: string; alumnos: Alumno[]; };
   </div>
   `,
   styles: [`
-    :host { display:block; color:#e5e7eb; }
+  :host { display:block; color:var(--app-text); }
     .page { display:flex; flex-direction:column; gap:16px; }
     h2 { margin:0; }
     .panel {
-      background:#0f172a;
-      border:1px solid rgba(255,255,255,.08);
+      background: var(--app-surface);
+      border:1px solid var(--app-border);
       border-radius:12px;
       padding:10px 0;
     }
@@ -72,8 +72,8 @@ type Mesa = { id: number; materia: string; fecha: string; alumnos: Alumno[]; };
       display:flex; align-items:center; gap:8px;
       font-weight:600; font-size:16px;
       padding:10px 16px;
-      border-bottom:1px solid rgba(255,255,255,.06);
-      color:#fca5a5;
+      border-bottom:1px solid var(--app-border);
+      color: var(--accent-red);
     }
 
     .thead, .tr {
@@ -83,42 +83,45 @@ type Mesa = { id: number; materia: string; fecha: string; alumnos: Alumno[]; };
       gap:8px;
       padding:10px 16px;
     }
-    .thead { color:#9aa3b2; font-weight:500; border-bottom:1px solid rgba(255,255,255,.06); }
-    .tr { border-bottom:1px solid rgba(255,255,255,.04); }
+    .thead { color:var(--app-muted); font-weight:500; border-bottom:1px solid var(--app-border); }
+    .tr { border-bottom:1px solid var(--app-border); }
 
     .badge {
       padding:4px 10px; border-radius:999px; font-size:12px;
-      background:#334155; color:#e2e8f0;
+      background:var(--app-border); color:var(--app-text);
     }
     .badge.inscripto {
-      background:#7f1d1d; color:#ffdee0;
+      background:var(--accent-red); color:#fff;
     }
 
     .nota {
       width:80px;
       padding:4px 8px;
       border-radius:8px;
-      border:1px solid rgba(255,255,255,.1);
-      background:#1e293b; color:#fff;
+      border:1px solid var(--app-border);
+      background:var(--app-surface); color:var(--app-text);
       text-align:center;
     }
-    .nota:focus { outline:none; border-color:#f43f5e; }
+  .nota:focus { outline:none; border-color: var(--accent-red); }
 
     .right { text-align:right; }
 
     button[mat-flat-button] {
-      background:#7f1d1d;
-      color:#ffdee0;
+      background: var(--accent-red);
+      color: #fff;
       transition:background .2s ease;
     }
-    button[mat-flat-button]:hover:not(:disabled) { background:#991b1b; }
+    button[mat-flat-button]:hover:not(:disabled) { background: color-mix(in srgb, var(--accent-red) 80%, black 20%); }
     button[mat-flat-button]:disabled { opacity:.4; cursor:not-allowed; }
 
-    .empty { text-align:center; padding:16px; color:#9aa3b2; }
+  .empty { text-align:center; padding:16px; color:var(--app-muted); }
 
     @media (max-width: 900px) {
-      .thead, .tr { grid-template-columns: 2fr 0.8fr 0.8fr; }
-      .right { display:none; }
+      /* Reduce columns but keep actions visible — move actions to full-width row */
+      .thead, .tr { grid-template-columns: 2fr 0.9fr 0.9fr; }
+      /* Place the action cell on its own row so it doesn't disappear */
+      .tr .right { grid-column: 1 / -1; width: 100%; text-align: right; }
+      .tr .right button { width: auto; }
     }
   `]
 })

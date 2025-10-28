@@ -50,9 +50,9 @@ import { FinalItem, FinalesFacade } from '../services/finales.facade';
   </div>
   `,
   styles: [`
-    :host { display:block; padding:8px 12px 16px; background:#0f172a; color:#e5e7eb; }
+    :host { display:block; padding:8px 12px 16px; background:var(--app-surface); color:var(--app-text); }
     h2 { margin:0 0 12px; }
-    .info { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:8px; background:#0b1220; padding:10px; border-radius:10px; margin-bottom:12px; }
+    .info { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:8px; background:transparent; padding:10px; border-radius:10px; margin-bottom:12px; border:1px solid var(--app-border); }
     .form .field { width:100%; }
     .actions { display:flex; justify-content:flex-end; gap:8px; }
   `]

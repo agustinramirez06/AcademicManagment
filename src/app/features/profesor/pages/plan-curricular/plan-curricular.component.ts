@@ -51,23 +51,23 @@ import { PlanCurricularFacade, YearKey, PlanRow } from '../../services/plan-curr
   </div>
   `,
   styles: [`
-    :host { display:block; color:#e5e7eb; }
+  :host { display:block; color:var(--app-text); }
     .page { display:flex; flex-direction:column; gap:16px; }
     .header { display:flex; align-items:center; justify-content:space-between; }
-    .export { background:#7f1d1d; color:#ffdee0; }
+    .export { background:var(--accent-red); color:#fff; }
 
     .panel {
-      background:#0f172a; border:1px solid rgba(255,255,255,.08);
+      background:var(--app-surface); border:1px solid var(--app-border);
       border-radius:14px; padding:16px;
     }
-    .title-career { color:#f87171; font-weight:600; margin-bottom:12px; }
+    .title-career { color: color-mix(in srgb, var(--accent-red) 70%, var(--app-text) 30%); font-weight:600; margin-bottom:12px; }
 
     .tabs { display:flex; gap:8px; margin-bottom:8px; }
     .pill {
-      background:#0b1220; color:#e5e7eb; border:1px solid rgba(255,255,255,.1);
+      background:transparent; color:var(--app-text); border:1px solid var(--app-border);
       padding:6px 12px; border-radius:999px; cursor:pointer;
     }
-    .pill.active { background:#e5e7eb; color:#0b1220; font-weight:700; }
+    .pill.active { background:var(--app-text); color:var(--app-surface); font-weight:700; }
 
     .table { overflow:hidden; border-radius:10px; }
     .thead, .tr {

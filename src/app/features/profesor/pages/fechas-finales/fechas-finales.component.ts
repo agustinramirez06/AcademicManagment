@@ -59,18 +59,18 @@ import { SolicitarCambioDialogComponent } from '../../shared/solicitar-cambio-di
   </div>
   `,
   styles: [`
-    :host { display:block; color:#e5e7eb; }
+  :host { display:block; color:var(--app-text); }
     .page { display:flex; flex-direction:column; gap:14px; }
     .header-row { display:flex; align-items:center; justify-content:space-between; }
     .muted { color:#9aa3b2; font-size:14px; }
 
     .list { display:flex; flex-direction:column; gap:14px; }
     .card {
-      background:#0f172a;
-      border:1px solid rgba(255,255,255,.08);
+      background:var(--app-surface);
+      border:1px solid var(--app-border);
       border-radius:14px;
       padding:14px 16px;
-      box-shadow:0 10px 30px rgba(0,0,0,.25);
+      box-shadow: var(--app-shadow);
     }
     .card-head {
       display:flex; align-items:center; gap:8px;
@@ -79,14 +79,14 @@ import { SolicitarCambioDialogComponent } from '../../shared/solicitar-cambio-di
     .title { font-size:20px; font-weight:700; margin-bottom:10px; }
 
     .row { display:flex; align-items:center; gap:20px; margin:8px 0; flex-wrap:wrap; }
-    .item { display:flex; align-items:center; gap:8px; color:#cbd5e1; }
+  .item { display:flex; align-items:center; gap:8px; color:var(--app-muted); }
     .item mat-icon { font-size:20px; height:20px; width:20px; }
 
-    .chip { background:#7f1d1d; color:#ffdee0; border-radius:10px; padding:4px 10px; font-size:12px; }
-    .chip-outline { color:#fca5a5; border:1px solid rgba(252,165,165,.45); border-radius:10px; padding:4px 10px; font-size:12px; background:transparent; }
+  .chip { background:var(--accent-red); color:#fff; border-radius:10px; padding:4px 10px; font-size:12px; }
+  .chip-outline { color:var(--accent-red); border:1px solid color-mix(in srgb, var(--accent-red) 40%, transparent); border-radius:10px; padding:4px 10px; font-size:12px; background:transparent; }
 
-    .ghost { margin-left:auto; color:#cbd5e1; }
-    .ghost:hover { background:rgba(255,255,255,.08); }
+  .ghost { margin-left:auto; color:var(--app-muted); }
+  .ghost:hover { background:var(--app-hover); }
   `]
 })
 export class FechasFinalesComponent {

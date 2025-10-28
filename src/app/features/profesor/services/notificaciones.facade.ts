@@ -1,4 +1,5 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 
 export type NotiTipo = 'info' | 'warning' | 'success' | 'error';
 
@@ -6,49 +7,42 @@ export interface Notificacion {
   id: string;
   titulo: string;
   mensaje: string;
-  fecha: string;        // ISO string
+  fecha: string;   // ISO
   tipo: NotiTipo;
   leida: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
 export class NotificacionesFacade {
-
-  /** Estado en memoria — reemplazá por la llamada a tu API cuando la tengas */
-  private readonly _items = signal<Notificacion[]>([
+  private readonly _items$ = new BehaviorSubject<Notificacion[]>([
     {
       id: 'n1',
       titulo: 'Nuevo alumno inscripto',
-      mensaje: 'El alumno Carlos Rodríguez se ha inscripto a Programación I',
-      fecha: '2025-01-15T07:30:00Z',
+      mensaje: 'Carlos Rodríguez se inscribió a Programación I',
+      fecha: new Date().toISOString(),
       tipo: 'info',
       leida: false,
     },
-    // podés agregar más de ejemplo
   ]);
 
-  /** Selectores */
-  readonly all   = computed(() => this._items());
-  readonly unread = computed(() => this._items().filter(n => !n.leida));
-  readonly read   = computed(() => this._items().filter(n =>  n.leida));
+  readonly all$    = this._items$.asObservable();
+  readonly unread$ = this.all$.pipe(map(list => list.filter(n => !n.leida)));
+  readonly read$   = this.all$.pipe(map(list => list.filter(n =>  n.leida)));
 
-  /** Contadores para cards superiores */
-  readonly totalCount  = computed(() => this._items().length);
-  readonly unreadCount = computed(() => this.unread().length);
-  readonly readCount   = computed(() => this.read().length);
+  readonly totalCount$:  Observable<number> = this.all$.pipe(map(l => l.length));
+  readonly unreadCount$: Observable<number> = this.unread$.pipe(map(l => l.length));
+  readonly readCount$:   Observable<number> = this.read$.pipe(map(l => l.length));
 
-  /** Acciones */
   marcarComoLeida(id: string) {
-    this._items.update(list =>
-      list.map(n => n.id === id ? { ...n, leida: true } : n)
-    );
+    const next = this._items$.value.map(n => n.id === id ? { ...n, leida: true } : n);
+    this._items$.next(next);
   }
 
   marcarTodasComoLeidas() {
-    this._items.update(list => list.map(n => ({ ...n, leida: true })));
+    this._items$.next(this._items$.value.map(n => ({ ...n, leida: true })));
   }
 
   eliminar(id: string) {
-    this._items.update(list => list.filter(n => n.id !== id));
+    this._items$.next(this._items$.value.filter(n => n.id !== id));
   }
 }

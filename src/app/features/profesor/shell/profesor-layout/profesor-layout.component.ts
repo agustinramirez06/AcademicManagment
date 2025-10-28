@@ -1,72 +1,91 @@
-import { Component, ViewChild, computed, inject, signal } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
+import { AuthService } from '../../../../services/auth.service';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { PerfilDialogComponent } from '../../components/perfil-dialog/perfil-dialog.component';
+
+// Angular Material (header + sidenav + menu + iconos + badge + lista + botones)
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-
-import { AuthService } from '../../../../services/auth.service';
-import { NotificacionesFacade } from '../../services/notificaciones.facade';
-import { PerfilDialogComponent } from '../../components/perfil-dialog/perfil-dialog.component';
-
-type NavItem = { label: string; icon: string; link: string };
 
 @Component({
   standalone: true,
   selector: 'app-profesor-layout',
-  imports: [
-    CommonModule,
-    RouterOutlet, RouterLink, RouterLinkActive,
-    MatIconModule, MatMenuModule, MatButtonModule, MatBadgeModule,
-    MatSidenavModule, MatListModule, MatDialogModule
-    // , PerfilDialogComponent  // descomenta si lo usas
-  ],
   templateUrl: './profesor-layout.component.html',
   styleUrls: ['./profesor-layout.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  imports: [
+    // Angular
+    CommonModule, RouterOutlet, RouterLink, RouterLinkActive,
+    // Material
+    MatIconModule, MatMenuModule, MatButtonModule, MatBadgeModule,
+    MatSidenavModule, MatListModule, MatDialogModule
+  ]
 })
-export class ProfesorLayoutComponent {
-  @ViewChild('drawer') drawer!: MatSidenav;
+export class ProfesorLayoutComponent implements OnInit {
+  @ViewChild('drawer') drawer?: MatSidenav;
 
-  private auth   = inject(AuthService);
-  private dialog = inject(MatDialog);
-  private noti   = inject(NotificacionesFacade);
+  usuario: string = 'Profesor';
+  notificacionesNoLeidas = 0; // si ya tenés un servicio que la actualiza, asignalo en ngOnInit
 
-  nav = signal<NavItem[]>([
-    { label:'Inicio',             icon:'home',        link:'/profesor' },
-    { label:'Fechas de Finales',  icon:'event',       link:'/profesor/fechas-finales' },
-    { label:'Listado de Actas',   icon:'assignment',  link:'/profesor/listado-actas' },
-    { label:'No Inscriptos',      icon:'person_off',  link:'/profesor/no-inscriptos' },
-    { label:'Inscriptos',         icon:'groups',      link:'/profesor/inscriptos' },
-    { label:'Correlativas',       icon:'menu_book',   link:'/profesor/correlativas' },
-    { label:'Plan Curricular',    icon:'school',      link:'/profesor/plan-curricular' },
-    { label:'Cierre de Acta',     icon:'grading',     link:'/profesor/cierre-acta' },
-  ]);
+  nav = [
+    { label: 'Inicio',              link: '/profesor/inicio',             icon: 'home' },
+    { label: 'Fechas de Finales',   link: '/profesor/fechas-finales',     icon: 'event' },
+    { label: 'Listado de Actas',    link: '/profesor/listado-actas',      icon: 'description' },
+    { label: 'No Inscriptos',       link: '/profesor/no-inscriptos',      icon: 'person_off' },
+  { label: 'Inscriptos',          link: '/profesor/inscriptos', icon: 'groups' },
+    { label: 'Correlativas',        link: '/profesor/correlativas',       icon: 'menu_book' },
+    { label: 'Plan Curricular',     link: '/profesor/plan-curricular',    icon: 'school' },
+    { label: 'Cierre de Acta',      link: '/profesor/cierre-acta',        icon: 'assignment' },
+    { label: 'Notificaciones',      link: '/profesor/notificaciones',     icon: 'notifications' }
+  ];
 
-  displayName = computed(() => (localStorage.getItem('user') ?? 'profesor1')
-    .replace(/^./, c => c.toUpperCase()));
-  initials = computed(() => this.displayName().split(' ').map(s => s[0]).join('').slice(0,2).toUpperCase());
+  constructor(
+    private auth: AuthService,
+    private dialog: MatDialog,
+    private router: Router
+  ) {}
 
-  unread = this.noti.unreadCount;
+  ngOnInit(): void {
+    // Recupera el usuario como lo haces en tu login
+    const raw = localStorage.getItem('user');
+    this.usuario = raw ? raw : 'Profesor';
 
-  toggleDrawer(){ this.drawer?.toggle(); }
+    // Si más adelante querés conectar el badge a tu servicio de notificaciones, actualizá notificacionesNoLeidas acá:
+    // this.notificacionesNoLeidas = ...
+  }
 
-  // dentro de class ProfesorLayoutComponent
-  async abrirPerfil() {
-    // import dinámico: evita problemas de rutas/compilación
-    const { PerfilDialogComponent } = await import(
-      '../../components/perfil-dialog/perfil-dialog.component'
-    );
+  // Helpers usados en el template
+  unread(): number { return this.notificacionesNoLeidas || 0; }
+  displayName(): string { return this.usuario; }
+  initials(): string {
+    return this.displayName().split(' ').map(p => p[0] ?? '').join('').slice(0,2).toUpperCase();
+  }
+
+  abrirPerfil(): void {
     this.dialog.open(PerfilDialogComponent, {
+      width: '720px',
+      maxWidth: '95vw',
       panelClass: 'perfil-dialog',
-      autoFocus: false,
-      width: '760px',
+      autoFocus: false
     });
   }
 
-  logout(){ this.auth.logout(); }
+  // alias para que el template compile si tenías (click)="logout()"
+  logout(): void { this.cerrarSesion(); }
+
+  cerrarSesion(): void {
+    if (this.auth.logout) this.auth.logout();
+    this.router.navigate(['/login']);
+  }
+
+  toggleDrawer(): void {
+    this.drawer?.toggle();
+  }
 }

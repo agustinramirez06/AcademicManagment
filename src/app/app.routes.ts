@@ -62,7 +62,7 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/profesor/pages/notificaciones/notificaciones.component')
             .then(m => m.NotificacionesComponent),
-      },
+      }
     ],
   },
 
