@@ -1,0 +1,36 @@
+<section class="hero">
+<h1>¡Buenas noches!</h1>
+<p>Panel de administración del sistema académico</p>
+</section>
+
+
+<section class="stats">
+<div class="card" *ngFor="let s of stats">
+<div class="icon">{{ s.icon }}</div>
+<div class="value">{{ s.value }}</div>
+<div class="label">{{ s.label }}</div>
+</div>
+</section>
+
+
+<div class="grid">
+<section class="panel">
+<h2>Notificaciones Recientes</h2>
+<div class="note" *ngFor="let n of notifications">
+<div class="note-icon">⏺</div>
+<div class="note-body">
+<h3>{{ n.title }}</h3>
+<p>{{ n.text }}</p>
+<small>{{ n.date }}</small>
+</div>
+</div>
+</section>
+
+
+<section class="panel">
+<h2>Acciones Administrativas</h2>
+<button class="action">👥 Gestionar Usuarios</button>
+<button class="action">📅 Gestionar Fechas</button>
+<button class="action">📄 Ver Reportes</button>
+</section>
+</div>
