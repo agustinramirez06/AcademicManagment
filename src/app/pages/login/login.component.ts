@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -23,11 +23,17 @@ export class LoginComponent {
   onLogin() {
     if (this.loginForm.valid) {
       const { usuario, password } = this.loginForm.value;
-      this.authService.login(usuario, password);
+      const success = this.authService.loginWithCredentials(usuario, password);
+      if (!success) {
+        console.error('Invalid credentials');
+      }
     }
   }
 
   loginDemo(usuario: string) {
-    this.authService.login(usuario, 'demo');
+    const success = this.authService.loginWithCredentials(usuario, 'demo');
+    if (!success) {
+      console.error('Demo login failed');
+    }
   }
 }

@@ -1,0 +1,21 @@
+<h2 class="title">Inscriptos</h2>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Alumno</th>
+        <th>Materia</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of rows">
+        <td>{{ r.alumno }}</td>
+        <td>{{ r.materia }}</td>
+        <td>{{ r.fecha }}</td>
+        <td>{{ r.estado }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

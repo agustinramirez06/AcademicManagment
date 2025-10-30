@@ -1,0 +1,53 @@
+:host { display: contents; }
+
+/* Drawer overlay always on top of everything */
+.overlay {
+	position: fixed;
+	inset: 0;
+	background: rgba(0,0,0,.45);
+	z-index: 100;
+}
+
+.sidedrawer {
+	position: fixed;
+	inset: 0 auto 0 0;
+	width: 300px;
+	transform: translateX(-100%);
+	background: #0b1420;
+	border-right: 1px solid rgba(255,255,255,.08);
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	z-index: 101;
+	overflow-y: auto;
+}
+
+.sidedrawer a {
+	color: #cdd6f4;
+	text-decoration: none;
+	padding: 10px 12px;
+	border-radius: 8px;
+}
+
+.sidedrawer a:hover {
+	background: #1b2a3b;
+	color: #fff;
+}
+
+.sidedrawer.open {
+	transform: translateX(0);
+	transition: transform .25s ease;
+}
+
+.content {
+	padding: 16px;
+	background: #0a1220;
+	min-height: calc(100dvh - 64px);
+}
+
+/* Responsive rules */
+@media (max-width: 991px) {
+	.menu { display: none; }
+	.icon-btn { display: inline-block; }
+}

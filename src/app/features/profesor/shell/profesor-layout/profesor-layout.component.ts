@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-import { AuthService } from '../../../../services/auth.service';
+import { AuthService } from '../../../../shared/services/auth.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { PerfilDialogComponent } from '../../components/perfil-dialog/perfil-dialog.component';
 
@@ -35,7 +35,7 @@ export class ProfesorLayoutComponent implements OnInit {
   notificacionesNoLeidas = 0; // si ya tenés un servicio que la actualiza, asignalo en ngOnInit
 
   nav = [
-    { label: 'Inicio',              link: '/profesor/inicio',             icon: 'home' },
+    { label: 'Inicio',              link: '/profesor',                    icon: 'home' },
     { label: 'Fechas de Finales',   link: '/profesor/fechas-finales',     icon: 'event' },
     { label: 'Listado de Actas',    link: '/profesor/listado-actas',      icon: 'description' },
     { label: 'No Inscriptos',       link: '/profesor/no-inscriptos',      icon: 'person_off' },
@@ -53,9 +53,9 @@ export class ProfesorLayoutComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Recupera el usuario como lo haces en tu login
-    const raw = localStorage.getItem('user');
-    this.usuario = raw ? raw : 'Profesor';
+    // Obtener usuario desde AuthService (mantener en sync al recargar)
+    const u = this.auth.currentUser();
+    this.usuario = u?.displayName ?? u?.id ?? 'Profesor';
 
     // Si más adelante querés conectar el badge a tu servicio de notificaciones, actualizá notificacionesNoLeidas acá:
     // this.notificacionesNoLeidas = ...
@@ -81,8 +81,9 @@ export class ProfesorLayoutComponent implements OnInit {
   logout(): void { this.cerrarSesion(); }
 
   cerrarSesion(): void {
-    if (this.auth.logout) this.auth.logout();
-    this.router.navigate(['/login']);
+    this.auth.logout();
+    // redirigir al login central
+    this.router.navigate(['/auth/login']);
   }
 
   toggleDrawer(): void {
