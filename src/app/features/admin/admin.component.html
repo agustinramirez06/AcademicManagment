@@ -1,0 +1,68 @@
+<div class="admin-container">
+  <!-- HEADER -->
+  <header class="admin-header">
+    <h1 class="title">Panel Administrativo</h1>
+    <div class="header-actions">
+      <button mat-raised-button color="primary" (click)="crearUsuario()">
+        <mat-icon>person_add</mat-icon>
+        Crear usuario
+      </button>
+    </div>
+  </header>
+
+  <!-- TABLA DE USUARIOS -->
+  <section class="table-section">
+    <table class="user-table" *ngIf="usuarios?.length; else sinUsuarios">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Rol</th>
+          <th>Activo</th>
+          <th class="acciones-col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of usuarios">
+          <td>{{ u.id }}</td>
+          <td>{{ u.nombre }} {{ u.apellido }}</td>
+          <td>{{ u.email }}</td>
+          <td>
+            <span class="rol-badge" [ngClass]="u.rol">{{ u.rol }}</span>
+          </td>
+          <td>
+            <mat-icon [ngClass]="u.activo ? 'activo' : 'inactivo'">
+              {{ u.activo ? 'check_circle' : 'cancel' }}
+            </mat-icon>
+          </td>
+          <td class="acciones">
+            <button mat-icon-button color="primary" matTooltip="Editar" (click)="editarUsuario(u)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="accent" matTooltip="Asignar rol" (click)="asignarRol(u)">
+              <mat-icon>security</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" matTooltip="Eliminar" (click)="eliminarUsuario(u)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Actividad" (click)="verActividad(u)">
+              <mat-icon>history</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Cambiar contraseña" (click)="cambiarPassword(u)">
+              <mat-icon>vpn_key</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Si no hay usuarios -->
+    <ng-template #sinUsuarios>
+      <div class="empty-state">
+        <mat-icon>people_outline</mat-icon>
+        <p>No hay usuarios registrados.</p>
+      </div>
+    </ng-template>
+  </section>
+</div>

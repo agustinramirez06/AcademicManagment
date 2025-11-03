@@ -1,0 +1,15 @@
+.hdr { display:flex; align-items:center; justify-content:space-between; color: var(--app-text); }
+.hdr-left { display:flex; align-items:center; gap:8px; font-weight:700; }
+
+.body { min-width: 560px; max-width: 760px; }
+.grid {
+  display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; align-items:start; padding:12px 0;
+}
+.full { grid-column: 1 / -1; }
+
+.actions { display:flex; gap:10px; justify-content:flex-end; margin-top:4px; }
+
+@media (max-width: 640px) {
+  .body { min-width: 100%; }
+  .grid { grid-template-columns: 1fr; }
+}

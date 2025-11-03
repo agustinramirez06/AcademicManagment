@@ -1,0 +1,11 @@
+.hdr { display:flex; align-items:center; justify-content:space-between; color: var(--app-text); }
+.hdr-left { display:flex; align-items:center; gap:8px; font-weight:700; }
+
+.body { min-width: 420px; }
+.message { font-size:14px; color: var(--app-text); }
+
+.actions { display:flex; gap:10px; justify-content:flex-end; margin-top:4px; }
+
+@media (max-width: 640px) {
+  .body { min-width: 100%; }
+}

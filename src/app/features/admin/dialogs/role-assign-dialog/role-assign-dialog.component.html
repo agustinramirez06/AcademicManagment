@@ -1,0 +1,31 @@
+<h2 mat-dialog-title class="hdr">
+  <div class="hdr-left">
+    <mat-icon>security</mat-icon>
+    <span>Asignar rol</span>
+  </div>
+  <button mat-icon-button (click)="cerrar()" aria-label="Cerrar">
+    <mat-icon>close</mat-icon>
+  </button>
+</h2>
+
+<mat-dialog-content class="body">
+  <p class="muted">Usuario: <strong>{{ data.name || '—' }}</strong></p>
+
+  <mat-form-field class="full" appearance="fill">
+    <mat-label>Rol</mat-label>
+    <mat-select [(ngModel)]="role">
+      <mat-option value="administrador">Administrador</mat-option>
+      <mat-option value="docente">Docente</mat-option>
+      <mat-option value="usuario">Usuario</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="actions">
+  <button mat-stroked-button (click)="cerrar()">
+    <mat-icon>close</mat-icon> Cancelar
+  </button>
+  <button mat-flat-button color="primary" (click)="guardar()">
+    <mat-icon>save</mat-icon> Guardar
+  </button>
+</mat-dialog-actions>

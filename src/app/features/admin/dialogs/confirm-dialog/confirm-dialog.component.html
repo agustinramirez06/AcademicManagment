@@ -1,0 +1,22 @@
+<h2 mat-dialog-title class="hdr">
+  <div class="hdr-left">
+    <mat-icon>{{ data.danger ? 'warning' : 'help_outline' }}</mat-icon>
+    <span>{{ data.title || (data.danger ? 'Atención' : 'Confirmar') }}</span>
+  </div>
+  <button mat-icon-button mat-dialog-close aria-label="Cerrar">
+    <mat-icon>close</mat-icon>
+  </button>
+</h2>
+
+<mat-dialog-content class="body">
+  <p class="message">{{ data.message }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="actions">
+  <button mat-stroked-button (click)="cancelar()">
+    <mat-icon>close</mat-icon> {{ data.cancelLabel || 'Cancelar' }}
+  </button>
+  <button mat-flat-button [color]="data.danger ? 'warn' : 'primary'" (click)="confirmar()">
+    <mat-icon>check</mat-icon> {{ data.okLabel || 'Aceptar' }}
+  </button>
+</mat-dialog-actions>

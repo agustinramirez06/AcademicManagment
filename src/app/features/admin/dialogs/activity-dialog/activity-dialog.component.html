@@ -1,0 +1,29 @@
+<h2 mat-dialog-title class="hdr">
+  <div class="hdr-left">
+    <mat-icon>history</mat-icon>
+    <span>Actividad reciente</span>
+  </div>
+  <button mat-icon-button mat-dialog-close aria-label="Cerrar">
+    <mat-icon>close</mat-icon>
+  </button>
+</h2>
+
+<mat-dialog-content class="body">
+  <mat-list *ngIf="logs?.length; else empty">
+    <mat-list-item *ngFor="let l of logs">
+      <mat-icon matListIcon>schedule</mat-icon>
+      <div matLine>{{ l.action }}</div>
+      <div matLine class="muted">{{ l.when }}</div>
+    </mat-list-item>
+  </mat-list>
+
+  <ng-template #empty>
+    <p class="muted">No hay actividad registrada.</p>
+  </ng-template>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="actions">
+  <button mat-stroked-button mat-dialog-close>
+    Cerrar
+  </button>
+</mat-dialog-actions>

@@ -1,43 +1,79 @@
-<header class="topbar">
-	<div class="brand">
-		<img src="assets/logo.png" alt="logo" />
-		<span>Instituto del Profesorado</span>
-	</div>
+<header class="topbar mat-elevation-z3">
+  <!-- Marca -->
+  <a class="brand" routerLink="/admin">
+    <img class="logo" src="assets/logo.png" alt="Panel Administrativo" />
+  </a>
 
-	<nav class="menu" aria-label="Principal">
-		<a routerLink="/admin/dashboard" routerLinkActive="active">Inicio</a>
-		<a routerLink="/admin/usuarios" routerLinkActive="active">Gestión de Usuarios</a>
-		<a routerLink="/admin/fechas" routerLinkActive="active">Gestión de Fechas</a>
-		<a routerLink="/admin/reportes" routerLinkActive="active">Reportes</a>
-		<a routerLink="/admin/notificaciones" routerLinkActive="active">Envío de Notificaciones</a>
-	</nav>
+  <!-- NAV con scroll horizontal -->
+  <nav class="nav scroller" aria-label="Secciones del administrador">
+    @for (item of nav; track item.link) {
+      <a class="nav-link"
+         [routerLink]="item.link"
+         routerLinkActive="active"
+         #rla="routerLinkActive"
+         [attr.aria-current]="rla.isActive ? 'page' : null">
+        <mat-icon class="ni">{{ item.icon }}</mat-icon>
+        <span class="label">{{ item.label }}</span>
+      </a>
+    }
+  </nav>
 
-	<div class="right">
-		<button class="icon-btn" (click)="toggleMenu()" aria-label="Abrir menú" *ngIf="isMobile()">
-			<span class="bar"></span>
-			<span class="bar"></span>
-			<span class="bar"></span>
-		</button>
+  <!-- Acciones -->
+  <div class="actions">
+    <button mat-icon-button
+            [routerLink]="['/admin/notificaciones']"
+            [matBadge]="unread()"
+            matBadgeColor="warn"
+            [matBadgeHidden]="unread() === 0"
+            aria-label="Ir a notificaciones">
+      <mat-icon>notifications</mat-icon>
+    </button>
 
-		<div class="user" *ngIf="(user$ | async) as user">
-			<div class="avatar">{{ (user.displayName || user.email || 'US')[0] | uppercase }}</div>
-			<span class="name">{{ user.displayName || user.email }}</span>
-			<button class="logout" (click)="logout()">Salir</button>
-		</div>
-	</div>
+    <button mat-button class="user" [matMenuTriggerFor]="userMenu" type="button">
+      <span class="avatar">{{ initials() }}</span>
+      <span class="name">{{ displayName() }}</span>
+      <mat-icon>expand_more</mat-icon>
+    </button>
+    <mat-menu #userMenu="matMenu" xPosition="before">
+      <button mat-menu-item (click)="abrirPerfil()">
+        <mat-icon>person</mat-icon><span>Mi perfil</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon><span>Cerrar sesión</span>
+      </button>
+    </mat-menu>
+  </div>
+
+  <!-- Hamburguesa móvil -->
+  <button class="hamb" mat-icon-button (click)="toggleDrawer()" aria-label="Abrir menú">
+    <mat-icon>menu</mat-icon>
+  </button>
 </header>
 
-<!-- Side drawer overlay (móvil) -->
-<div class="overlay" *ngIf="menuOpen()" (click)="closeMenu()"></div>
-<aside class="sidedrawer" [class.open]="menuOpen()">
-	<a (click)="closeMenu()" routerLink="/admin/dashboard">Inicio</a>
-	<a (click)="closeMenu()" routerLink="/admin/usuarios">Gestión de Usuarios</a>
-	<a (click)="closeMenu()" routerLink="/admin/fechas">Gestión de Fechas</a>
-	<a (click)="closeMenu()" routerLink="/admin/inscriptos">Inscriptos</a>
-	<a (click)="closeMenu()" routerLink="/admin/reportes">Reportes</a>
-	<a (click)="closeMenu()" routerLink="/admin/notificaciones">Envío de Notificaciones</a>
-</aside>
+<mat-sidenav-container class="container">
+  <mat-sidenav #drawer mode="over" class="drawer">
+    <div class="drawer-head">
+      <div class="avatar big">{{ initials() }}</div>
+      <div class="who">
+        <div class="nm">{{ displayName() }}</div>
+        <div class="role">Administrador</div>
+      </div>
+      <button mat-icon-button (click)="toggleDrawer()"><mat-icon>close</mat-icon></button>
+    </div>
 
-<main class="content">
-	<router-outlet />
-</main>
+    <mat-nav-list (click)="toggleDrawer()">
+      @for (item of nav; track item.link) {
+        <a mat-list-item [routerLink]="item.link">
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          <div matListItemTitle>{{ item.label }}</div>
+        </a>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <main class="page">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

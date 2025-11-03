@@ -1,0 +1,51 @@
+<h2 mat-dialog-title class="hdr">
+  <div class="hdr-left">
+    <mat-icon>person</mat-icon>
+    <span>{{ title }}</span>
+  </div>
+  <button mat-icon-button (click)="cerrar()" aria-label="Cerrar">
+    <mat-icon>close</mat-icon>
+  </button>
+</h2>
+
+<mat-dialog-content class="body">
+  <div class="grid">
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input matInput [(ngModel)]="user.nombre" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Apellido</mat-label>
+      <input matInput [(ngModel)]="user.apellido" required>
+    </mat-form-field>
+
+    <mat-form-field class="full" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" [(ngModel)]="user.email">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Teléfono</mat-label>
+      <input matInput [(ngModel)]="user.telefono">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Rol</mat-label>
+      <mat-select [(ngModel)]="user.rol">
+        <mat-option value="administrador">Administrador</mat-option>
+        <mat-option value="docente">Docente</mat-option>
+        <mat-option value="usuario">Usuario</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="actions">
+  <button mat-stroked-button (click)="cerrar()">
+    <mat-icon>close</mat-icon> Cancelar
+  </button>
+  <button mat-flat-button color="primary" (click)="guardar()">
+    <mat-icon>save</mat-icon> Guardar
+  </button>
+</mat-dialog-actions>

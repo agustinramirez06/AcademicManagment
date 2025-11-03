@@ -1,0 +1,84 @@
+<h2 mat-dialog-title class="hdr">
+  <div class="hdr-left">
+    <mat-icon>person</mat-icon>
+    <span>Perfil de usuario</span>
+  </div>
+  <button mat-icon-button (click)="cerrar()" aria-label="Cerrar">
+    <mat-icon>close</mat-icon>
+  </button>
+</h2>
+
+<mat-dialog-content class="body">
+  <div class="perfil">
+    <div class="avatar" [class.placeholder]="!data.avatarUrl">
+      <img *ngIf="data.avatarUrl" [src]="data.avatarUrl" [alt]="nombreCompleto" />
+      <span *ngIf="!data.avatarUrl">{{ data.nombre[0] }}{{ data.apellido[0] }}</span>
+    </div>
+
+    <div class="info">
+      <div class="nombre-row">
+        <h3 class="nombre" [matTooltip]="nombreCompleto">{{ nombreCompleto }}</h3>
+        <mat-chip-set class="chips">
+          <mat-chip selectable="false" class="rol" [ngClass]="data.rol">{{ data.rol }}</mat-chip>
+          <mat-chip selectable="false" class="estado" [ngClass]="data.activo ? 'activo' : 'inactivo'">
+            <mat-icon inline>{{ data.activo ? 'check_circle' : 'cancel' }}</mat-icon>
+            {{ data.activo ? 'Activo' : 'Inactivo' }}
+          </mat-chip>
+        </mat-chip-set>
+      </div>
+
+      <div class="dato">
+        <mat-icon>alternate_email</mat-icon>
+        <span class="label">Correo</span>
+        <span class="value">{{ data.email }}</span>
+      </div>
+
+      <div class="dato" *ngIf="data.telefono">
+        <mat-icon>call</mat-icon>
+        <span class="label">Teléfono</span>
+        <span class="value">{{ data.telefono }}</span>
+      </div>
+
+      <div class="dato" *ngIf="data.empresa">
+        <mat-icon>business</mat-icon>
+        <span class="label">Empresa</span>
+        <span class="value">{{ data.empresa }}</span>
+      </div>
+
+      <div class="dato">
+        <mat-icon>fingerprint</mat-icon>
+        <span class="label">ID</span>
+        <span class="value">#{{ data.id }}</span>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider class="sep"></mat-divider>
+
+  <div class="meta">
+    <div class="meta-item">
+      <mat-icon>security</mat-icon>
+      <div>
+        <div class="meta-label">Rol</div>
+        <div class="meta-value text-cap">{{ data.rol }}</div>
+      </div>
+    </div>
+
+    <div class="meta-item">
+      <mat-icon>verified_user</mat-icon>
+      <div>
+        <div class="meta-label">Estado</div>
+        <div class="meta-value">{{ data.activo ? 'Habilitado' : 'Deshabilitado' }}</div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="actions">
+  <button mat-stroked-button (click)="cerrar()">
+    <mat-icon>close</mat-icon> Cerrar
+  </button>
+  <button mat-flat-button color="primary" (click)="editar()">
+    <mat-icon>edit</mat-icon> Editar
+  </button>
+</mat-dialog-actions>

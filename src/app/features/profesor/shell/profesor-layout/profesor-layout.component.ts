@@ -39,7 +39,7 @@ export class ProfesorLayoutComponent implements OnInit {
     { label: 'Fechas de Finales',   link: '/profesor/fechas-finales',     icon: 'event' },
     { label: 'Listado de Actas',    link: '/profesor/listado-actas',      icon: 'description' },
     { label: 'No Inscriptos',       link: '/profesor/no-inscriptos',      icon: 'person_off' },
-  { label: 'Inscriptos',          link: '/profesor/inscriptos', icon: 'groups' },
+    { label: 'Inscriptos',          link: '/profesor/inscriptos', icon: 'groups' },
     { label: 'Correlativas',        link: '/profesor/correlativas',       icon: 'menu_book' },
     { label: 'Plan Curricular',     link: '/profesor/plan-curricular',    icon: 'school' },
     { label: 'Cierre de Acta',      link: '/profesor/cierre-acta',        icon: 'assignment' },
