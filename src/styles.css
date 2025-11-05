@@ -11,7 +11,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .nav-link.active {
-  background-color: var(--header-accent) !important; /* 👈 fuerza el color rojo */
+  background-color: var(--header-accent); /* 👈 fuerza el color rojo */
   color: #fff !important;
   font-weight: 600;
 }
